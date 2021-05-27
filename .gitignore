@@ -2,7 +2,10 @@ build
 dist
 *.egg-info
 tensorflow
-externals
+externals/*
+!externals/subword-conformer/
+externals/subword-conformer/*
+!externals/subword-conformer/config.yml
 .vim
 .session.vim
 Session.vim

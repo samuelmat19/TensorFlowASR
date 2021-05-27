@@ -26,7 +26,8 @@ tf.keras.backend.clear_session()
 
 parser = argparse.ArgumentParser(prog="Conformer Testing")
 
-parser.add_argument("--config", type=str, default=DEFAULT_YAML, help="The file path of model configuration file")
+parser.add_argument("--config", type=str, default=DEFAULT_YAML,
+                    help="The file path of model configuration file")
 
 parser.add_argument("--saved", type=str, default=None, help="Path to saved model")
 
@@ -34,7 +35,8 @@ parser.add_argument("--mxp", default=False, action="store_true", help="Enable mi
 
 parser.add_argument("--bs", type=int, default=None, help="Test batch size")
 
-parser.add_argument("--sentence_piece", default=False, action="store_true", help="Whether to use `SentencePiece` model")
+parser.add_argument("--sentence_piece", default=False, action="store_true",
+                    help="Whether to use `SentencePiece` model")
 
 parser.add_argument("--subwords", default=False, action="store_true", help="Use subwords")
 
@@ -55,11 +57,12 @@ env_util.setup_devices([args.device], cpu=args.cpu)
 from tensorflow_asr.configs.config import Config
 from tensorflow_asr.datasets.asr_dataset import ASRSliceDataset
 from tensorflow_asr.featurizers.speech_featurizers import TFSpeechFeaturizer
-from tensorflow_asr.featurizers.text_featurizers import SubwordFeaturizer, SentencePieceFeaturizer, CharFeaturizer
+from tensorflow_asr.featurizers.text_featurizers import SubwordFeaturizer, \
+    SentencePieceFeaturizer, CharFeaturizer
 from tensorflow_asr.models.transducer.conformer import Conformer
 from tensorflow_asr.utils import app_util
 
-config = Config(args.config)
+config = Config(args.config, parse_only_test_dataset=True)
 speech_featurizer = TFSpeechFeaturizer(config.speech_config)
 
 if args.sentence_piece:
